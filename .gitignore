@@ -1,0 +1,68 @@
+# Python
+
+**pycache**/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Virtual Environment
+
+venv/
+env/
+ENV/
+.venv/
+
+# Environment Variables
+
+.env
+.env.*
+
+# Django
+
+*.log
+db.sqlite3
+media/
+staticfiles/
+static/
+
+*.sql
+
+# Django cache
+
+.cache/
+
+# Pytest
+
+.pytest_cache/
+
+# Coverage
+
+htmlcov/
+.coverage
+.coverage.*
+
+# IDEs
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+
+.DS_Store
+Thumbs.db
+
+# Build files
+
+dist/
+build/
+
+# Celery
+
+celerybeat-schedule
+
+# Logs
+
+logs/
+*.log
