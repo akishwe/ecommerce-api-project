@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 from decouple import config
 import os
@@ -97,6 +98,17 @@ DATABASES = {
         "HOST": config("DB_HOST"),
         "PORT": config("DB_PORT", cast=int),
     }
+}
+
+SIMPLE_JWT = {
+
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+
+    "AUTH_HEADER_TYPES": ("Bearer",),
+
+    "SIGNING_KEY": SECRET_KEY,
+
 }
 
 
