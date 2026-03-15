@@ -1,0 +1,11 @@
+from rest_framework import generics
+from apps.users.models import User
+from rest_framework.permissions import AllowAny
+from apps.users.serializers.user_serializers import UserRegistrationSerializer
+
+
+class RegisterUserAPIView(generics.CreateAPIView):
+
+    queryset = User.objects.all()
+    serializer_class = UserRegistrationSerializer
+    permission_classes = [AllowAny]
