@@ -4,29 +4,38 @@ from apps.products.models import Category, Product, ProductVariant, ProductImage
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
-        fields = "__all__"
+        fields = ["id", "image", "is_primary"]
 
 class ProductVariantSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductVariant
-        fields = "__all__"
+        fields = ["id", "sku", "price", "stock", "attributes"]
 
 class ProductSerializer(serializers.ModelSerializer):
     variants = ProductVariantSerializer(many=True, read_only=True)
     images = ProductImageSerializer(many=True, read_only=True)
-    category_name = serializers.CharField(source='category.name', read_only=True)
+    category_name = serializers.CharField(source="category.name", read_only=True)
 
     class Meta:
         model = Product
-        fields = "__all__"
+        fields = [
+            "id",
+            "name",
+            "description",
+            "category",
+            "category_name",
+            "variants",
+            "images",
+            "is_active",
+        ]
 
 class CategorySerializer(serializers.ModelSerializer):
     children = serializers.SerializerMethodField()
-    products_count = serializers.IntegerField(source='products.count', read_only=True)
+    products_count = serializers.IntegerField(source="products.count", read_only=True)
 
     class Meta:
         model = Category
-        fields = ["id", "name", "description", "parent", "children", "products_count", "is_active"]
+        fields = ["id", "name", "parent", "children", "products_count"]
 
     def get_children(self, obj):
-        return CategorySerializer(obj.children.all(), many=True).data
+        return [{"id": c.id, "name": c.name} for c in obj.children.all()]
